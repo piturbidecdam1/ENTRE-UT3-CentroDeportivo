@@ -28,7 +28,7 @@ public class CentroDeportivo
     //TODO 
     private final int HORA_PRIMERA_CLASE = 10;
     private final int MINUTOS_PRIMERA_CLASE = 30;
-    private final int HORA_ULTIMA_CLASE = 8;
+    private final int HORA_ULTIMA_CLASE = 20;
     private final int MINUTOS_ULTIMA_CLASE = 30;
     private final int DESCANSO = 10;
     private final double PRECIO_BASE = 5.0;
@@ -37,11 +37,13 @@ public class CentroDeportivo
     private final char PILATES = 'P';
     private final char SPINNING = 'S';
     
-    
+    //nombre del centro
     private String nombre;
+    //incripciones por clase
     private int yoga;
     private int pilates;
     private int spinning;
+    
     private double totalAcumulado;
     private int salaMaximoYoga;
     private int maximoInscripcionesYoga;
@@ -52,25 +54,32 @@ public class CentroDeportivo
      * Recibe un único parámetro, el nombre del centro deportivo
      * e inicializa el resto de atributos adecuadamente 
      */
-    public CentroDeportivo()    {
+    public CentroDeportivo(String queNombre)    {
         //TODO 
-
+        nombre = queNombre;
+        int yoga = 0;
+        int pilates = 0;
+        int spinning = 0;
+        double totalAcumulado = 0;
+        int salaMaximoYoga = 0;
+        int maximoInscripcionesYoga = 0;
     }
 
     /**
      *  Accesor para el nombre del centro deportivo
      *
      */
-    public  getNombre()    {
+    public String getNombre()    {
         //TODO 
+        return nombre;
     }
 
     /**
      *  Mutador para el nombre del centro deportivo
      */
-    public   setNombre()    {
+    public void setNombre(String nuevoNombre)    {
        //TODO 
-       
+       nombre = nuevoNombre;
     }
 
     /**
@@ -78,9 +87,9 @@ public class CentroDeportivo
      *  entre todos los inscritos en el centro
      *
      */
-    public   getImporteTotal()    {
+    public double getImporteTotal()    {
         //TODO 
-        
+        return totalAcumulado;
     }
 
     /**
@@ -94,7 +103,7 @@ public class CentroDeportivo
      *      pilates, las clases duran 1 hora y  5 minutos y se han inscrito en esta sala 15 personas
      *   
      *   A partir de esta información el método debe calcular:
-     *      - total inscritos por tipo de actividad (independientemente de la sala)
+     *      *- total inscritos por tipo de actividad (independientemente de la sala)
      *      - la sala con máximo nº de inscritos en yoga y dicho valor máximo 
      *   
      *   Utiliza una sentencia switch  para analizar el tipo de actividad
@@ -114,31 +123,96 @@ public class CentroDeportivo
      *   En pantalla se mostrarán los datos de la sala tal como indican los resultados de ejecución
      *              
      */
-    public void tarificarClaseEnSala(int sala, char tipo, int horas, int minutos, int inscritos)    {
-        //TODO 
+    public void tarificarClaseEnSala(int sala, char tipo, int horas, int minutos, int inscritos)    { 
+        int horasEnMinutos = horas * 60;
+        int inicioHoraEnMinutos = HORA_PRIMERA_CLASE * 60;
+        int inicioMinutosTotal = inicioHoraEnMinutos + MINUTOS_PRIMERA_CLASE;
+        int finHoraEnMinutos = HORA_ULTIMA_CLASE * 60;
+        int finMinutosTotal = finHoraEnMinutos + MINUTOS_ULTIMA_CLASE;
+        int minutosDeClase = horasEnMinutos + minutos;
+        int minutosDeClaseDescanso = minutosDeClase + DESCANSO;
+        //precio por clase en sala
+        double precioPorClase = (minutosDeClase / 15 * PRECIO_QUINCE_MINUTOS) + PRECIO_BASE;
+        int minutosDeTrabajoTotal = finMinutosTotal - inicioMinutosTotal;
+        // nº de veces que la clase se ofertará en la sala
+        int cantidadDeClases = minutosDeTrabajoTotal / minutosDeClaseDescanso;
+        int minutosALoLargoDelDía = minutosDeTrabajoTotal - cantidadDeClases * minutosDeClaseDescanso;
+        // hora de finalizacion
+        int minutosFinal = MINUTOS_ULTIMA_CLASE - (cantidadDeClases * minutosDeClaseDescanso % 60);
+        int horaFinal = HORA_ULTIMA_CLASE - (cantidadDeClases * minutosDeClaseDescanso / 60);
         
+        
+        
+        
+        //total inscritos por actividad
+        switch (tipo){
+            case YOGA : 
+                yoga += inscritos;
+                break;
+            case PILATES :
+                pilates += inscritos;
+                break;
+            case SPINNING :
+                spinning += inscritos;
+                break;
+        }
+        
+        
+        //sala con más inscripciones en yoga
+        if (tipo == 'Y' && (yoga > maximoInscripcionesYoga)){
+             salaMaximoYoga = sala;
+             maximoInscripcionesYoga = inscritos;
+        }
+        //importe ganado por el total de los inscitos
+        totalAcumulado =+ precioPorClase * inscritos;
+        
+        
+        System.out.println ("Sala Nº." + sala + "           Actividad: " + String.valueOf(tipo));
+        System.out.println ("Actividad: " + String.valueOf(tipo));
+        System.out.println ("Longitud (Duración):" + minutosDeClase + "min. Descanso: " + DESCANSO + "min.");
+        System.out.println ("Precio clase: " + precioPorClase + "€.");
+        System.out.println ("Clase ofertada en sala: " + cantidadDeClases + " veces al día.");
+        System.out.println ("La última clase termina a las: " + horaFinal + "h y " + minutosFinal + " minutos");
+        System.out.println ("Total inscritos en sala: " + inscritos);
+        System.out.println ("Pulse tecla para continuar");
         
     }
-
-    /**
-     *  nº sala en la que hay más inscritos en yoga
-     *   
-     */
-    public  getSala()   {
-        //TODO 
         
-    }
+        
+    
+     /**
+      *  nº sala en la que hay más inscritos en yoga
+      *   
+      */
+     public void getSala()   {
+         //TODO 
+        System.out.println ("La sala con más inscritos a yoga es " + salaMaximoYoga);
+     }
 
     /**
      * Devuelve el nombre de la actividad con más inscritos 
      * independientemente de la sala  (puede haber coincidencias)
      *  
      */
-    public   getActividadMaximasInscripciones()    {
-        //TODO mayor = Math.max (a , b); maximo = Math.max (mayor , c);
-        
-        
-        
+    public String getActividadMaximasInscripciones()    {
+        //TODO
+        String resultado = "";
+        if (yoga > spinning && yoga > pilates){
+            resultado += "YOGA";
+        }if (yoga == spinning){
+            resultado += "YOGA SPINNING";
+        }if (yoga == pilates){
+            resultado += "YOGA PILATES";
+        }if (yoga == spinning && yoga == pilates){
+            resultado += "YOGA SPINNING PILATES";
+        }if (spinning > yoga && spinning > pilates){
+            resultado += "SPINNING";
+        }if (spinning == pilates){
+            resultado += "SPINNING PILATES";
+        }if (pilates > yoga && pilates > spinning){
+            resultado += "PILATES";
+        }
+        return resultado;
     }
 
 }
