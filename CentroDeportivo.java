@@ -124,6 +124,7 @@ public class CentroDeportivo
      *              
      */
     public void tarificarClaseEnSala(int sala, char tipo, int horas, int minutos, int inscritos)    { 
+<<<<<<< HEAD
         int horasEnMinutos = horas * 60;
         int inicioHoraEnMinutos = HORA_PRIMERA_CLASE * 60;
         int inicioMinutosTotal = inicioHoraEnMinutos + MINUTOS_PRIMERA_CLASE;
@@ -140,8 +141,19 @@ public class CentroDeportivo
         // hora de finalizacion
         int minutosFinal = MINUTOS_ULTIMA_CLASE - (cantidadDeClases * minutosDeClaseDescanso % 60);
         int horaFinal = HORA_ULTIMA_CLASE - (cantidadDeClases * minutosDeClaseDescanso / 60);
+=======
+>>>>>>> 41b609bf12560f63fb53091e16f0688277f5a6a3
         
+        switch (tipo){
+            case 'Y' : 
+                yoga = inscritos;
+            case 'P' :
+                pilates = inscritos;
+            case 'S' :
+                spinning = inscritos;
+        }
         
+<<<<<<< HEAD
         
         
         //total inscritos por actividad
@@ -176,8 +188,24 @@ public class CentroDeportivo
         System.out.println ("Total inscritos en sala: " + inscritos);
         System.out.println ("Pulse tecla para continuar");
         
+=======
+        if (tipo == 'Y' && (yoga > maximoInscripcionesYoga)){
+             sala = salaMaximoYoga;
+        }
+>>>>>>> 41b609bf12560f63fb53091e16f0688277f5a6a3
     }
+<<<<<<< HEAD
+=======
+
+    // /**
+     // *  nº sala en la que hay más inscritos en yoga
+     // *   
+     // */
+    // public  getSala()   {
+        // //TODO 
+>>>>>>> 41b609bf12560f63fb53091e16f0688277f5a6a3
         
+<<<<<<< HEAD
         
     
      /**
@@ -188,7 +216,11 @@ public class CentroDeportivo
          //TODO 
         System.out.println ("La sala con más inscritos a yoga es " + salaMaximoYoga);
      }
+=======
+    // }
+>>>>>>> 41b609bf12560f63fb53091e16f0688277f5a6a3
 
+<<<<<<< HEAD
     /**
      * Devuelve el nombre de la actividad con más inscritos 
      * independientemente de la sala  (puede haber coincidencias)
@@ -214,5 +246,18 @@ public class CentroDeportivo
         }
         return resultado;
     }
+=======
+    // /**
+     // * Devuelve el nombre de la actividad con más inscritos 
+     // * independientemente de la sala  (puede haber coincidencias)
+     // *  
+     // */
+    // public   getActividadMaximasInscripciones()    {
+        // //TODO mayor = Math.max (a , b); maximo = Math.max (mayor , c);
+        
+        
+        
+    // }
+>>>>>>> 41b609bf12560f63fb53091e16f0688277f5a6a3
 
 }
