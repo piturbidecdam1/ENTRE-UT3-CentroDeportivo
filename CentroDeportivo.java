@@ -52,25 +52,32 @@ public class CentroDeportivo
      * Recibe un único parámetro, el nombre del centro deportivo
      * e inicializa el resto de atributos adecuadamente 
      */
-    public CentroDeportivo()    {
+    public CentroDeportivo(String queNombre)    {
         //TODO 
-
+        nombre = queNombre;
+        int yoga = 0;
+        int pilates = 0;
+        int spinning = 0;
+        double totalAcumulado = 0;
+        int salaMaximoYoga = 0;
+        int maximoInscripcionesYoga = 0;
     }
 
     /**
      *  Accesor para el nombre del centro deportivo
      *
      */
-    public  getNombre()    {
+    public String getNombre()    {
         //TODO 
+        return nombre;
     }
 
     /**
      *  Mutador para el nombre del centro deportivo
      */
-    public   setNombre()    {
+    public void setNombre(String nuevoNombre)    {
        //TODO 
-       
+       nombre = nuevoNombre;
     }
 
     /**
@@ -78,9 +85,9 @@ public class CentroDeportivo
      *  entre todos los inscritos en el centro
      *
      */
-    public   getImporteTotal()    {
+    public double getImporteTotal()    {
         //TODO 
-        
+        return totalAcumulado;
     }
 
     /**
@@ -114,31 +121,41 @@ public class CentroDeportivo
      *   En pantalla se mostrarán los datos de la sala tal como indican los resultados de ejecución
      *              
      */
-    public void tarificarClaseEnSala(int sala, char tipo, int horas, int minutos, int inscritos)    {
-        //TODO 
+    public void tarificarClaseEnSala(int sala, char tipo, int horas, int minutos, int inscritos)    { 
         
+        switch (tipo){
+            case 'Y' : 
+                yoga = inscritos;
+            case 'P' :
+                pilates = inscritos;
+            case 'S' :
+                spinning = inscritos;
+        }
         
+        if (tipo == 'Y' && (yoga > maximoInscripcionesYoga)){
+             sala = salaMaximoYoga;
+        }
     }
 
-    /**
-     *  nº sala en la que hay más inscritos en yoga
-     *   
-     */
-    public  getSala()   {
-        //TODO 
+    // /**
+     // *  nº sala en la que hay más inscritos en yoga
+     // *   
+     // */
+    // public  getSala()   {
+        // //TODO 
         
-    }
+    // }
 
-    /**
-     * Devuelve el nombre de la actividad con más inscritos 
-     * independientemente de la sala  (puede haber coincidencias)
-     *  
-     */
-    public   getActividadMaximasInscripciones()    {
-        //TODO mayor = Math.max (a , b); maximo = Math.max (mayor , c);
+    // /**
+     // * Devuelve el nombre de la actividad con más inscritos 
+     // * independientemente de la sala  (puede haber coincidencias)
+     // *  
+     // */
+    // public   getActividadMaximasInscripciones()    {
+        // //TODO mayor = Math.max (a , b); maximo = Math.max (mayor , c);
         
         
         
-    }
+    // }
 
 }
